@@ -68,4 +68,5 @@ onMounted(() => {
         scroll-behavior: smooth;
         transition: all 0.5 ease-out;
     }
+    
 </style>

@@ -1,7 +1,8 @@
 <script setup>
-import {defineExpose, nextTick, onMounted, ref} from 'vue'
+import {defineExpose, nextTick, onMounted, ref, reactive} from 'vue'
 import lokaVolterra from '../js/lokaVolterra.js'
 import manager from '../js/animateManager.js';
+import SlideMenuBtn from './SlideMenuBtn.vue';
 const props = defineProps({
     max: Number,
     ratio: Number
@@ -14,14 +15,51 @@ const canvas = ref(null);
 const bitmap = ref(null);
 onMounted(async () =>{
     lokaVolterra.setCanvas(canvas.value, bitmap.value);
-    // 不是必需的
-    // 我在manager寫了一個警告，
-    // 由父元件進行設定(監聽頁面)前，是沒有ID的，此時註冊動畫雖然可行，但不建議
-    console.log(manager);
+    // 我在manager寫了缺失ID的警告，
+    // 由父元件進行設定(交互觀測)前，是沒有ID的，所以延後註冊動畫
     await nextTick();
+    // 不等待，雖然可行，但不建議
     manager.registerAnimationCallback("renderS1", lokaVolterra.render);
     manager.registerAnimationCallback("updateS1", lokaVolterra.update);
 });
+
+const state = reactive({
+    useMouse: 0,
+    isTransform: 0,
+    alpha: 5,
+    beta: 10,
+    gamma: 5,
+    delta: 10,
+    dlength: 10,
+    speed: 10
+});
+lokaVolterra.algorithm.updateData(state);
+const handleCanvasControl = (e) => {
+    const ID = e.target.id;
+    const value = e.target.value;
+    console.log(state[ID]);
+    if(state[ID] == undefined){
+        console.warn("invalid key(ID): " + ID + ", check whether it is in object state");
+        return;
+    }
+    state[ID] = value * 1;
+    lokaVolterra.algorithm.updateData(state);
+}
+
+const isMain = ref(true);
+const isWorker = ref(true);
+const handlePauseMain = () => {
+    isMain.value = !isMain.value;
+    const name = (isMain.value ? "resume" : "pause") + "AnimationByName";
+    manager[name]("renderS1");
+    manager[name]("updateS1");
+}
+const handlePauseWorker = () => {
+    isWorker.value = !isWorker.value;
+    lokaVolterra["pauseWorker"](isWorker.value);
+}
+
+const menu = ref(null);
 </script>
 
 <template>
@@ -38,20 +76,29 @@ onMounted(async () =>{
             :width="max * ratio"
             :height="ratio * max * ratio"
         ></canvas>
-        <!-- <MenuS1 :manager="manager" :lokaVolterra="lokaVolterra" /> -->
+        <div ref="menu" class="gamemenu">
+            <header id="header"><h3>Lotka Volterra 實驗場 + Web Woker</h3></header>
+            <div class="parameter">
+                <label>Alpha</label><input @input="handleCanvasControl" type="number" id="alpha" :value="state.alpha"></input>
+                <label>Beta</label><input @input="handleCanvasControl" type="number" id="beta" :value="state.beta"></input>
+                <label>Gamma</label><input @input="handleCanvasControl" type="number" id="gamma" :value="state.gamma"></input>
+                <label>Delta</label><input @input="handleCanvasControl" type="number" id="delta" :value="state.delta"></input>
+                <label>Vector Size</label><input @input="handleCanvasControl" type="number" id="dlength" :value="state.dlength"></input>
+                <label>Transform Speed</label><input @input="handleCanvasControl" type="number" id="speed" :value="state.speed"></input>
+            </div>
+            <div class="controlpanel">
+                <label>★</label>
+                <button @click="handleCanvasControl" id="useMouse" :value="state.useMouse ? 0 : 1">{{state.useMouse ? "取消跟隨" : "跟隨滑鼠"}}</button>
+                <button @click="handleCanvasControl" id="isTransform" :value="state.isTransform ? 0 : 1">{{state.isTransform == "1" ? "取消縮}放" : "加入縮放"}}</button>
+                <button @click="handlePauseMain" id="pauseMain">{{isMain ? "停止(左)" : "開始(左)"}}</button>
+                <button @click="handlePauseWorker" id="pauseWorker">{{isWorker ? "停止(右)" : "開始(右)"}}</button>
+            </div>
+            <div id="dialogbox"><p id="dialog">∫此微分方程用於描述捕食者和獵物的此消彼長，沿著中心點呈現漩渦紋理</p></div>
+            <SlideMenuBtn :menu="menu"/>
+        </div>
     </section>
 </template>
 
 <style scoped>
-    section{
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    canvas{
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+
 </style>

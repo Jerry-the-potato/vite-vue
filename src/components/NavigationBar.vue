@@ -20,6 +20,7 @@ onMounted(() => {
         <div v-for="link in links" :key="link.id">
             <a :href="'#' + link.id" :id="'to' + link.id" class="list">{{ link.id }}</a>
         </div>
+        <!-- <a v-for="link in links" :key="link.id" :href="'#' + link.id" :id="'to' + link.id" class="list">{{ link.id }}</a> -->
         <div @click="handleClick" id="navSlider">
             <p>{{isOpen ? "X": "≡"}}</p>
         </div>
@@ -27,6 +28,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
+div{
+  margin: 0;
+}
 nav{
   position: fixed;
   top: 0;
