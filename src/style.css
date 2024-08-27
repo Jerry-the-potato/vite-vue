@@ -160,3 +160,10 @@ div#playground section{
 .gamemenu .controlpanel button:hover, .gamemenu .parameter input:hover{
     opacity: 1;
 }
+
+
+@media (max-width: 992px){
+  :root{
+    font-size: 12px;
+  }
+}
