@@ -1,5 +1,4 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 import Playground from './components/Playground.vue';
 import NavigationBar from './components/NavigationBar.vue';
 </script>

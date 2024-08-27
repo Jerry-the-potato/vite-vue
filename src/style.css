@@ -51,8 +51,8 @@ body {
 
   --main-color:     #456;
   --darker-color:   #222;
-  --soft-color:     rgb(222, 241, 255);
-  /* --soft-color:     rgba(179, 198, 213, 1); */
+  /* --soft-color:     rgb(222, 241, 255); */
+  --soft-color:     rgba(179, 198, 213, 1);
   --textbg-color: #FFEEDD;
   background-color: var(--textbg-color);
 }

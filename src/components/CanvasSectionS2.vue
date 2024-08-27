@@ -1,5 +1,5 @@
 <script setup>
-import {defineExpose, onMounted, nextTick, ref} from 'vue'
+import {defineExpose, onMounted, onBeforeUnmount, nextTick, ref} from 'vue'
 import audioUrl from '../assets/Lovely Piano Song.mp3'
 import musicAnalyser from '../js/musicAnalyser';
 import manager from '../js/animateManager';
@@ -13,6 +13,9 @@ onMounted(async () => {
     manager.registerAnimationCallback("renderS2", musicAnalyser.render);
     window.addEventListener('resize', musicAnalyser.resize, false);
 })
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', musicAnalyser.resize, false);
+});
 
 const props = defineProps({
   myMouse: Object,

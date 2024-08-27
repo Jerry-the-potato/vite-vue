@@ -4,6 +4,7 @@ import { useWindowSize } from './composables/useWindowSize';
 import CanvasSectionS1 from './CanvasSectionS1.vue';
 import CanvasSectionS2 from './CanvasSectionS2.vue';
 import CanvasSectionS3 from './CanvasSectionS3.vue';
+import CookieTable from './CookieTable.vue';
 import manager from '../js/animateManager.js';
 import myMouse from '../js/myMouse.js';
 
@@ -53,6 +54,7 @@ onMounted(() => {
         <CanvasSectionS1 ref="sectionRef1" :max="max" :ratio="ratio"/>
         <CanvasSectionS2 ref="sectionRef2" :max="max" :ratio="ratio"/>
         <CanvasSectionS3 ref="sectionRef3" :max="max" :ratio="ratio"/>
+        <CookieTable />
     </div>
 </template>
 
