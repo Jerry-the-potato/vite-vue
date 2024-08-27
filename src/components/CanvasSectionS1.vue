@@ -99,5 +99,32 @@ const menu = ref(null);
 </template>
 
 <style scoped>
+@media (max-width: 992px){
+  /* 遊戲介面架構 */
+  .gamemenu{
+    height: 200px;
+    font-size: 1rem;
+}
+    .gamemenu .parameter{
+        display: flex;
+        height: 6em;
+        width: 15em;
+        flex-direction: column;
+        flex-wrap: wrap;
+        font-size: 1em;
+        transition: all 1s ease-in-out;
+    }
+        .gamemenu .parameter label{
+            flex: 1 0 15%;
+            margin: 0;
+        }
+        .gamemenu .parameter input{
+            flex: 1 0 10%;
+            margin: 0 2em 0 0;
+        }
+        .gamemenu .controlpanel button:focus, .gamemenu .parameter input:focus{
+            opacity: 1;
+        }
+}
 
 </style>

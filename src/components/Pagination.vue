@@ -71,7 +71,7 @@ const setActivePage = (page) => {
 .pagDescription{
     width: 9em;
 }
-    .button{
+    button{
         width: auto;
         flex: auto;
         font-size: 1.2rem;
@@ -86,10 +86,17 @@ const setActivePage = (page) => {
         cursor: pointer;
         transition: all 0.2s ease;
     }
-    .button:hover{
+    button:hover{
         border-style: inset;
         background-color: var(--textbg-color);
         color: var(--main-color);
     }
+  
+@media (max-width: 992px){
+    button{
+      font-size: 1em;
+      padding: 0.2em 0.2em;
+    }
+}
 </style>
   

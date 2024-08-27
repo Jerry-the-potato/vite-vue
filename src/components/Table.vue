@@ -120,7 +120,7 @@ const updateActivePage = (page) => {
         </thead>
         <tbody>
             <tr v-for="row in calculatedRows" :key="row.id">
-                <td v-for="column in columns" :key="column">{{ row[column.accessor] }}</td>
+                <td v-for="column in columns" :key="column">{{ (column.format) ? column.format(row[column.accessor]) : row[column.accessor] }}</td>
             </tr>
         </tbody>
     </table>
@@ -135,6 +135,7 @@ const updateActivePage = (page) => {
   
 
 <style scoped>
+
 table{
     margin: 10px;
     width: calc(100% - 20px);
@@ -158,19 +159,19 @@ table{
             height: 1em;
         }
         th:nth-child(1), td:nth-child(1){
-            min-width: 2.5em;
+            min-width: 3.2em;
         }
         th:nth-child(2), td:nth-child(2){
-            min-width: 4.5em;
+            min-width: 4em;
         }
         th:nth-child(3), td:nth-child(3){
-            min-width: 2.5em;
+            min-width: 3.2em;
         }
         th:nth-child(4), td:nth-child(4){
-            min-width: 1em;
+            min-width: 3.2em;
         }
         th:nth-child(5), td:nth-child(5){
-            min-width: 2.5em;
+            min-width: 3.2em;
         }
             th, td{
                 text-align: center;
@@ -191,7 +192,7 @@ table{
                 flex: auto;
                 font-size: 1.2rem;
                 color: var(--soft-color);
-                background-color: transparent;
+                background-color: var(--darker-color);
                 border-color: var(--soft-color);
                 border-style: outset;
                 border-width: 0.1em;
@@ -206,5 +207,14 @@ table{
                 background-color: var(--textbg-color);
                 color: var(--main-color);
             }
+
+@media (max-width: 992px){
+    tr{
+        font-size: 1em;
+    }
+    button{
+        font-size: 0.6em;
+    }
+}
 </style>
   

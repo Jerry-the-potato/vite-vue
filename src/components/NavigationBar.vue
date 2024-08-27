@@ -75,4 +75,21 @@ nav a:hover{
     color: #222;
     pointer-events: none;
 }
+
+@media (max-width: 992px){
+    nav{
+        left: -150px;
+        width: 150px;
+    }
+    nav a{
+        font-size: 1.5em;
+    }
+    #navSlider{
+        top: 10px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+}
 </style>
