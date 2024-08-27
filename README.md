@@ -1,5 +1,14 @@
 # Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+gh-pages: [https://jerry-the-potato.github.io/vite-vue](https://jerry-the-potato.github.io/vite-vue)
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+採用組合式API風格，有四個獨立區塊、動態渲染導航列，其中可複用的元件有:
+側欄導航和頂欄菜單按鈕
+可搜尋排序的表格
+表格分頁按鈕
+
+裡面包含了幾個早期小項目，文章連結如下:
+[粒子系統](https://ithelp.ithome.com.tw/articles/10341245)
+[Web Worker效能實測](https://ithelp.ithome.com.tw/articles/10341355)
+[Three.js](https://ithelp.ithome.com.tw/articles/10341610)
+[BuffGemetry](https://ithelp.ithome.com.tw/articles/10341831)
