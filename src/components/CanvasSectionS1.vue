@@ -1,5 +1,5 @@
 <script setup>
-import {defineExpose, nextTick, onMounted, ref, reactive} from 'vue'
+import { nextTick, onMounted, ref, reactive} from 'vue'
 import lokaVolterra from '../js/lokaVolterra.js'
 import manager from '../js/animateManager.js';
 import SlideMenuBtn from './SlideMenuBtn.vue';
@@ -37,7 +37,6 @@ lokaVolterra.algorithm.updateData(state);
 const handleCanvasControl = (e) => {
     const ID = e.target.id;
     const value = e.target.value;
-    console.log(state[ID]);
     if(state[ID] == undefined){
         console.warn("invalid key(ID): " + ID + ", check whether it is in object state");
         return;

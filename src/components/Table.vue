@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, defineProps} from 'vue';
+import { computed, ref} from 'vue';
 import Pagination from './Pagination.vue';
 import _ from 'lodash';
 

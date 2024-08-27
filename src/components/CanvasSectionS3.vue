@@ -1,5 +1,5 @@
 <script setup>
-import {defineExpose, onMounted, nextTick, ref} from 'vue'
+import {onMounted, nextTick, ref} from 'vue'
 import SlideMenuBtn from './SlideMenuBtn.vue';
 import physic from '../js/physic'
 import manager from '../js/animateManager';

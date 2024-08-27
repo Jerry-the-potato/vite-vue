@@ -197,15 +197,15 @@ export default class ParticleSystem{
         this.texts.log.text = this.sort.log.innerText;
         this.columns.forEach((column) => {
             if(column.path != undefined){
-                if(column.path.__proto__.constructor.name == "Path"){
+                if(column.path.__proto__.constructor == Path){
                     column.path.NextFrame();
                 }
             }
         })
         this.sort.secondColumns.forEach((column, index) => {
             if(column.path == undefined) return;
-            const funcitonName = column.path.__proto__.constructor.name;
-            if(funcitonName != "Path") return console.warn("the path of columns[ " + index + " ] was never constructed by Path");
+            const funcitonName = column.path.__proto__.constructor;
+            if(funcitonName != Path) return console.warn("the path of columns[ " + index + " ] was never constructed by Path");
             column.path.NextFrame();
         })
 

@@ -17,6 +17,7 @@ const createPhysic = function(){
         this.system.getRender(this.ctx);
     }
     this.start = (e) => {
+        console.log(e.target.id);
         const ID = e.target.id;
         if(!this.system.sort[ID]){
             console.warn("invalid function name. Button id " + ID + " is not any of sortFunctions");

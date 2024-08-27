@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted } from 'vue';
 const props = defineProps({
   width: Number,
 });

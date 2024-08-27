@@ -1,5 +1,5 @@
 <script setup>
-import {defineExpose, onMounted, onBeforeUnmount, nextTick, ref} from 'vue'
+import {onMounted, onBeforeUnmount, nextTick, ref} from 'vue'
 import audioUrl from '../assets/Lovely Piano Song.mp3'
 import musicAnalyser from '../js/musicAnalyser';
 import manager from '../js/animateManager';
