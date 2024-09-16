@@ -1,17 +1,34 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick, onUnmounted } from 'vue';
 const props = defineProps({
-  width: Number,
+    width: Number,
+    divRef: Object
 });
 const isOpen = ref(false);
 const handleClick = () => isOpen.value = !isOpen.value;
 
+function handleHashChange(){
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const targetElement = document.querySelector(hash);
+    if (!targetElement) return;
+
+    targetElement.scrollIntoView({ behavior: 'smooth' });
+};
+
 const links = ref([]);
-onMounted(() => {
-    const sections = document.getElementById('playground').getElementsByTagName('section');
+onMounted(async() => {
+    await nextTick();
+    const sections = props.divRef.getElementsByTagName('section');
     links.value = Array.from(sections).map(section => ({
         id: section.id,
     }));
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+});
+onUnmounted(() => {
+    window.removeEventListener('hashchange', handleHashChange);
 });
 </script>
 

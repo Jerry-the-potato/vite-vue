@@ -5,6 +5,7 @@ import CanvasSectionS1 from './CanvasSectionS1.vue';
 import CanvasSectionS2 from './CanvasSectionS2.vue';
 import CanvasSectionS3 from './CanvasSectionS3.vue';
 import CookieTable from './CookieTable.vue';
+import NavigationBar from './NavigationBar.vue';
 import manager from '../js/animateManager.js';
 import myMouse from '../js/myMouse.js';
 
@@ -42,10 +43,11 @@ onMounted(() => {
     manager.registerAnimationCallback("validIn:S1,S2,S3", myMouse.NextFrame);
 });
 
+const divRef = ref(null);
 </script>
 
 <template>
-    <div id="playground" @mousemove="handleMouseMove"
+    <div id="playground" ref="divRef" @mousemove="handleMouseMove"
         :style="{ 
             width: max + 'px',
             height: max * ratio + 'px',
@@ -55,6 +57,7 @@ onMounted(() => {
         <CanvasSectionS2 ref="sectionRef2" :max="max" :ratio="ratio"/>
         <CanvasSectionS3 ref="sectionRef3" :max="max" :ratio="ratio"/>
         <CookieTable />
+        <NavigationBar :width="250" :divRef="divRef"/>
     </div>
 </template>
 
