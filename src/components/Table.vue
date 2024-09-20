@@ -59,7 +59,6 @@ const sortRows = (rows, sort) => {
 const activePage = ref(1);
 const filters = ref({});
 const sort = ref({ order: 'asc', orderBy: 'id' });
-const searchValue = ref('');
 
 const rowsPerPage = 8;
 const filteredRows = computed(() => filterRows(props.rows, filters.value));
@@ -99,31 +98,37 @@ const updateActivePage = (page) => {
 </script>
 
 <template>
-    <table class="table">
-        <thead>
-            <tr>
-                <th v-for="column in columns" :key="column.accessor">{{ column.label }}</th>
-            </tr>
-            <tr>
-                <th v-for="column in columns" :key="column.accessor">
-                    <label><input
-                        class="input"
-                        :key="'${column.accessor}-search'"
-                        type="search"
-                        :placeholder="`搜尋${column.label}`"
-                        :value="filters[column.accessor] || ''"
-                        @input="handleSearch($event.target.value, column.accessor)"
-                    /></label>
-                    <button @click="handleSort(column.accessor)">{{ (column.accessor === sort.orderBy) ? ((sort.order === 'asc') ? '升序🟢': '降序🔴') : '️排序⚪'}}</button>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="row in calculatedRows" :key="row.id">
-                <td v-for="column in columns" :key="column">{{ (column.format) ? column.format(row[column.accessor]) : row[column.accessor] }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div style="overflow: auto; margin: 0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th v-for="column in columns" :key="column.accessor">{{ column.label }}</th>
+                </tr>
+                <tr>
+                    <th v-for="column in columns" :key="column.accessor">
+                        <label><input
+                            class="input"
+                            :key="'${column.accessor}-search'"
+                            type="search"
+                            :placeholder="`搜尋${column.label}`"
+                            :value="filters[column.accessor] || ''"
+                            @input="handleSearch($event.target.value, column.accessor)"
+                        /></label>
+                    </th>
+                </tr>
+                <tr>
+                    <th v-for="column in columns" :key="column.accessor">
+                        <button @click="handleSort(column.accessor)">{{ (column.accessor === sort.orderBy) ? ((sort.order === 'asc') ? '升序🟢': '降序🔴') : '️排序⚪'}}</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="row in calculatedRows" :key="row.id">
+                    <td v-for="column in columns" :key="column">{{ (column.format) ? column.format(row[column.accessor]) : row[column.accessor] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <Pagination 
         @update:activePage="updateActivePage"
         :activePage="activePage"
@@ -137,20 +142,19 @@ const updateActivePage = (page) => {
 <style scoped>
 
 table{
-    margin: 10px;
-    width: calc(100% - 20px);
+    width: max-content;
     border-color: var(--main-color);
     border-style: ridge;
     border-collapse:collapse;
 }
-    thead{
+    th{
         background-color: var(--darker-color);
     }
-    tbody tr:nth-child(2n-1){
+    tr:nth-child(2n-1) td{
         color: var(--soft-color);
         background-color: var(--main-color);
     }
-    tbody tr:nth-child(2n){
+    tr:nth-child(2n) td{
         color: var(--darker-color);
         background-color: var(--soft-color);
     }
@@ -162,7 +166,19 @@ table{
             min-width: 3.2em;
         }
         th:nth-child(2), td:nth-child(2){
+            position: sticky;
+            left: 0px;
             min-width: 4em;
+        }
+        th:nth-child(2)::after, td:nth-child(2)::after{
+            content: "";
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 10px;
+            height: 100%;
+            box-shadow: inset 10px 0 8px -8px var(--darker-color);
+            transform: translateX(100%);
         }
         th:nth-child(3), td:nth-child(3){
             min-width: 3.2em;
@@ -174,13 +190,13 @@ table{
             min-width: 3.2em;
         }
             th, td{
-                text-align: center;
+                text-align: left;
                 vertical-align: bottom;
-                padding: 0 0 0 0.4em;
+                padding: 1rem;
             }
             input{
-                font-size: 0.8em;
-                width: 90%;
+                font-size: 0.7em;
+                width: 8em;
                 padding: 0.1em 0.4em 0.1em 0.4em;
                 border-radius: 0.5em;
                 color: var(--main-color);

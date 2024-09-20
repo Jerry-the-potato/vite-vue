@@ -11,7 +11,8 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "three": "^0.167.1",
-    "vue": "^3.4.37"
+    "vue": "^3.4.37",
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

@@ -75,9 +75,8 @@ const setActivePage = (page) => {
         width: auto;
         flex: auto;
         font-size: 1.2rem;
-        color: var(--soft-color);
-        background-color: var(--darker-color);
-        border-color: var(--soft-color);
+        color: var(--darker-color);
+        background-color: var(--soft-color);
         border-style: outset;
         border-width: 0.1em;
         border-radius: 0.5em;
@@ -88,8 +87,8 @@ const setActivePage = (page) => {
     }
     button:hover{
         border-style: inset;
-        background-color: var(--textbg-color);
-        color: var(--main-color);
+        color: var(--soft-color);
+        background-color: var(--main-color);
     }
   
 @media (max-width: 992px){
